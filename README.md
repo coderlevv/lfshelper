@@ -1,2 +1,2 @@
 # lfshelper
-Tools to help building an LFS system.
+Tools to help building a LFS system.
