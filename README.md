@@ -1,6 +1,6 @@
 # LFS build helper
 
-Provides a python3 command line tool which can generate shell scripts to build a LFS system.
+Provides a python3 command line tool which can generate shell scripts to build a [LFS system](https://www.linuxfromscratch.org/).
 
 The generated build scripts do *not* entirely automate an LFS build. E.g. most of the preparation steps and LFS configuration after the system was built is not covered by the build scripts.
 
@@ -12,7 +12,7 @@ Build the lfshelper package:
 cd lfshelper
 python setup.py sdist
 ```
-The source package to install with pip can be found in the dist dircetory.
+The source package to install with pip can be found in the dist directory.
 
 Create a python virtual environment on the host system and install the lfshelper package inside it. The lxml package is a dependency and should be installed along the lfshelper package as well.
 ```sh
