@@ -1,6 +1,8 @@
 """Classes representing sections and packages of a LFS book."""
 
 import re
+from pathlib import Path
+import os
 from os.path import basename
 
 class HTMLParseError(Exception):
@@ -71,15 +73,15 @@ class Package():
         """
 
         self.name = basename(href)
-        unpack_name = '.'.join(self.name.split(".")[:-2])
-        if unpack_name.startswith('tcl'):
-            unpack_name = unpack_name.replace("-src", "")
-        if unpack_name.startswith('procps'):
-            unpack_name = unpack_name.replace("-ng", "")
-        self.unpack_name = unpack_name
         self.md5 = md5
         self.tar = self.tar_ext[self.name.split('.')[-1]]
         self.base = self.get_unique_base_name(self.name)
+        tar_opt = self.tar.replace("x", "t")
+        tar_out = os.popen(f"tar {tar_opt} {self.name}|head -n1").read()
+        unpack_name = Path(tar_out.split()[-1]).parts[0]
+        assert unpack_name != ""
+        self.unpack_name = unpack_name
+
     
     def __repr__(self):
         return self.unpack_name
