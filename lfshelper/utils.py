@@ -2,6 +2,7 @@
 
 """
 
+import os
 from os.path import basename, join, exists
 from os import listdir
 import hashlib
@@ -15,9 +16,9 @@ from .classes import Section, Package, HTMLParseError
 from .__init__ import __version__
 from datetime import datetime
 
-def get_license_string(lfs_version):
-    return """
-# This script was generated using the lfshelper package, version {}, {}.
+def get_license_string(lfs_version, instructions=True):
+    license_string =  """
+# Script generated with lfshelper package version {}, {}.
 # The lfshelper package is licensed under the MIT license.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -36,10 +37,14 @@ def get_license_string(lfs_version):
 # AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 # WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 # CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+""".format(__version__, datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+    if instructions:
+        license_string += """
 #
 # Computer instructions in this script were extracted and adapted from the LFS book
 # (version {}), Copyright (c) Gerard Beekmans.
-""".format(__version__, datetime.now().strftime('%Y-%m-%d %H:%M:%S'), lfs_version)
+""".format(lfs_version)
+    return license_string
 
 def parse_doc(html_dir):
     """Find LFS html file and parse it."""
@@ -302,6 +307,34 @@ def write_section_cmds(sections, args, lfs_version):
                 print(f"echo '{m}'", file=fout)
 
     fout.close()
+
+
+def write_config_script(build_db, args, lfs_version):
+    """Copy LFS config files."""
+
+    if args.newline == 'LF':
+        newline = '\n'
+    else:
+        newline = '\r\n'
+    fname = join(args.out_dir, "lfs_build_config.sh")
+    fout = open(fname, "w", newline=newline)
+    print(get_license_string(lfs_version, instructions=False), file=fout)
+    
+    lfs_config = build_db.get("config")
+    cwd = os.getcwd()
+    try:
+        config_files = os.listdir(os.path.join(cwd, "config"))
+    except:
+        config_files = []
+
+    if "copy" in lfs_config:
+        for src, tgt in lfs_config["copy"]:
+            if src in config_files:
+                cmd = f"cp -v config/{src} {os.path.join(tgt, src)}"
+                print(cmd, file=fout)
+
+    fout.close()
+
 
 if __name__ == '__main__':
     pass

@@ -1,0 +1,506 @@
+{
+    "lfs_version": "11.2",
+    "ch-tools-binutils-pass1": {
+        "package_base": "binutils",
+        "changedir": 1,
+        "part": ["tool1"]
+    },
+    "ch-tools-gcc-pass1": {
+        "package_base": "gcc",
+        "part": ["tool1"]
+    },
+    "ch-tools-linux-headers": {
+        "package_base": "linux",
+        "part": ["tool1"]
+    },
+    "ch-tools-glibc": {
+        "package_base": "glibc",
+        "changedir": 1,
+        "part": ["tool1"]
+    },
+    "ch-tools-libstdcpp": {
+        "package_base": "gcc",
+        "changedir": 1,
+        "part": ["tool1"]
+    },
+    "ch-tools-m4": {
+        "package_base": "m4",
+        "part": ["tool1"]
+    },
+    "ch-tools-ncurses": {
+        "package_base": "ncurses",
+        "part": ["tool1"]
+    },
+    "ch-tools-bash": {
+        "package_base": "bash",
+        "part": ["tool1"]
+    },
+    "ch-tools-coreutils": {
+        "package_base": "coreutils",
+        "part": ["tool1"]
+    },
+    "ch-tools-diffutils": {
+        "package_base": "diffutils",
+        "part": ["tool1"]
+    },
+    "ch-tools-file": {
+        "package_base": "file",
+        "part": ["tool1"]
+    },
+    "ch-tools-findutils": {
+        "package_base": "findutils",
+        "part": ["tool1"]
+    },
+    "ch-tools-gawk": {
+        "package_base": "gawk",
+        "part": ["tool1"]
+    },
+    "ch-tools-grep": {
+        "package_base": "grep",
+        "part": ["tool1"]
+    },
+    "ch-tools-gzip": {
+        "package_base": "gzip",
+        "part": ["tool1"]
+    },
+    "ch-tools-make": {
+        "package_base": "make",
+        "part": ["tool1"]
+    },
+    "ch-tools-patch": {
+        "package_base": "patch",
+        "part": ["tool1"]
+    },
+    "ch-tools-sed": {
+        "package_base": "sed",
+        "part": ["tool1"]
+    },
+    "ch-tools-tar": {
+        "package_base": "tar",
+        "part": ["tool1"]
+    },
+    "ch-tools-xz": {
+        "package_base": "xz",
+        "part": ["tool1"]
+    },
+    "ch-tools-binutils-pass2": {
+        "package_base": "binutils",
+        "changedir": 1,
+        "part": ["tool1"]
+    },
+    "ch-tools-gcc-pass2": {
+        "package_base": "gcc",
+        "changedir": 1,
+        "part": ["tool1"]
+    },
+    "ch-tools-changingowner": {
+        "package_base": "nonpackage",
+        "part": ["tool1"],
+        "newfile": true
+    },
+    "ch-tools-kernfs": {
+        "package_base": "nonpackage",
+        "part": ["tool1"]
+    },
+    "ch-tools-chroot": {
+        "package_base": "nonpackage",
+        "part": ["tool1"]
+    },
+    "ch-tools-creatingdirs": {
+        "package_base": "nonpackage",
+        "part": ["tool2"]
+    },
+    "ch-tools-createfiles": {
+        "package_base": "nonpackage",
+        "part": ["tool2"]
+    },
+    "ch-tools-libstdcpp-pass2": {
+        "package_base": "gcc",
+        "changedir": 1,
+        "part": ["tool2"]
+    },
+    "ch-tools-gettext": {
+        "package_base": "gettext",
+        "part": ["tool2"]
+    },
+    "ch-tools-bison": {
+        "package_base": "bison",
+        "part": ["tool2"]
+    },
+    "ch-tools-perl": {
+        "package_base": "perl",
+        "part": ["tool2"]
+    },
+    "ch-tools-Python": {
+        "package_base": "Python",
+        "part": ["tool2"]
+    },
+    "ch-tools-texinfo": {
+        "package_base": "texinfo",
+        "part": ["tool2"]
+    },
+    "ch-tools-util-linux": {
+        "package_base": "util",
+        "part": ["tool2"],
+        "append": [
+            "rm -rf /usr/share/{info,man,doc}/*",
+            "find /usr/{lib,libexec} -name \\*.la -delete",
+				"rm -rf /tools"
+        ]
+    },
+    "ch-system-man-pages": {
+        "package_base": "man-pages",
+        "part": ["system"],
+        "newfile": true
+    },
+    "ch-system-iana-etc": {
+        "package_base": "iana",
+        "part": ["system"]
+    },
+    "ch-system-glibc": {
+        "package_base": "glibc",
+        "replace": {
+            "0": ["make localedata/install-locales", ""],
+            "1": ["tzselect", ""],
+            "2": ["zic -d $ZONEINFO -p America/New_York", "zic -d $ZONEINFO -p %s", "timezone"],
+            "3": ["ln -sfv /usr/share/zoneinfo/\n /etc/localtime", "ln -sfv /usr/share/zoneinfo/%s /etc/localtime", "timezone"]
+        },
+        "changedir": 1,
+        "part": ["system"]
+    },
+    "ch-system-zlib": {
+        "package_base": "zlib",
+        "part": ["system"]
+    },
+    "ch-system-bzip2": {
+        "package_base": "bzip2",
+        "part": ["system"]
+    },
+    "ch-system-xz": {
+        "package_base": "xz",
+        "part": ["system"]
+    },
+    "ch-system-zstd": {
+        "package_base": "zstd",
+        "part": ["system"]
+    },
+    "ch-system-file": {
+        "package_base": "file",
+        "part": ["system"]
+    },
+    "ch-system-readline": {
+        "package_base": "readline",
+        "part": ["system"]
+    },
+    "ch-system-m4": {
+        "package_base": "m4",
+        "part": ["system"]
+    },
+    "ch-system-bc": {
+        "package_base": "bc",
+        "part": ["system"]
+    },
+    "ch-system-flex": {
+        "package_base": "flex",
+        "part": ["system"]
+    },
+    "ch-system-tcl": {
+        "package_base": "tcl",
+        "changedir": 1,
+        "part": ["system"]
+    },
+    "ch-system-expect": {
+        "package_base": "expect",
+        "part": ["system"]
+    },
+    "ch-system-dejagnu": {
+        "package_base": "dejagnu",
+        "changedir": 1,
+        "part": ["system"]
+    },
+    "ch-system-binutils": {
+        "package_base": "binutils",
+        "changedir": 1,
+        "part": ["system"]
+    },
+    "ch-system-gmp": {
+        "package_base": "gmp",
+        "part": ["system"],
+        "replace": {
+            "0": ["cp -v configfsf.guess config.guess", ""],
+            "1": ["cp -v configfsf.sub   config.sub", ""]
+        }
+    },
+    "ch-system-mpfr": {
+        "package_base": "mpfr",
+        "part": ["system"]
+    },
+    "ch-system-mpc": {
+        "package_base": "mpc",
+        "part": ["system"]
+    },
+    "ch-system-attr": {
+        "package_base": "attr",
+        "part": ["system"]
+    },
+    "ch-system-acl": {
+        "package_base": "acl",
+        "part": ["system"]
+    },
+    "ch-system-libcap": {
+        "package_base": "libcap",
+        "part": ["system"]
+    },
+    "ch-system-shadow": {
+        "package_base": "shadow",
+        "part": ["system"],
+        "replace": {
+            "0": ["sed -i 's:DICTPATH.*:DICTPATH\\t/lib/cracklib/pw_dict:' etc/login.defs", ""],
+            "1": ["passwd root", ""]
+        },
+        "message": [
+            "-> Now issue: passwd root",
+            "-> Then enter root password and continue with next build script"
+        ]
+    },
+    "ch-system-gcc": {
+        "package_base": "gcc",
+        "changedir": 1,
+        "part": ["system"],
+        "newfile": true
+    },
+    "ch-system-pkgconfig": {
+        "package_base": "pkg",
+        "part": ["system"]
+    },
+    "ch-system-ncurses": {
+        "package_base": "ncurses",
+        "part": ["system"]
+    },
+    "ch-system-sed": {
+        "package_base": "sed",
+        "part": ["system"]
+    },
+    "ch-system-psmisc": {
+        "package_base": "psmisc",
+        "part": ["system"]
+    },
+    "ch-system-gettext": {
+        "package_base": "gettext",
+        "part": ["system"]
+    },
+    "ch-system-bison": {
+        "package_base": "bison",
+        "part": ["system"]
+    },
+    "ch-system-grep": {
+        "package_base": "grep",
+        "part": ["system"]
+    },
+    "ch-system-bash": {
+        "package_base": "bash",
+        "part": ["system"],
+        "replace": {
+            "0": ["exec /usr/bin/bash --login", ""]
+        },
+        "message": [
+            "-> Now issue: exec /usr/bin/bash --login",
+            "-> Then continue with next build script"
+        ]
+    },
+    "ch-system-libtool": {
+        "package_base": "libtool",
+        "part": ["system"],
+        "newfile": true
+    },
+    "ch-system-gdbm": {
+        "package_base": "gdbm",
+        "part": ["system"]
+    },
+    "ch-system-gperf": {
+        "package_base": "gperf",
+        "part": ["system"]
+    },
+    "ch-system-expat": {
+        "package_base": "expat",
+        "part": ["system"]
+    },
+    "ch-system-inetutils": {
+        "package_base": "inetutils",
+        "part": ["system"]
+    },
+    "ch-system-less": {
+        "package_base": "less",
+        "part": ["system"]
+    },
+    "ch-system-perl": {
+        "package_base": "perl",
+        "part": ["system"]
+    },
+    "ch-system-xml-parser": {
+        "package_base": "XML",
+        "part": ["system"]
+    },
+    "ch-system-intltool": {
+        "package_base": "intltool",
+        "part": ["system"]
+    },
+    "ch-system-autoconf": {
+        "package_base": "autoconf",
+        "part": ["system"]
+    },
+    "ch-system-automake": {
+        "package_base": "automake",
+        "part": ["system"]
+    },
+    "ch-system-openssl": {
+        "package_base": "openssl",
+        "part": ["system"]
+    },
+    "ch-system-kmod": {
+        "package_base": "kmod",
+        "part": ["system"]
+    },
+    "ch-system-libelf": {
+        "package_base": "elfutils",
+        "part": ["system"]
+    },
+    "ch-system-libffi": {
+        "package_base": "libffi",
+        "part": ["system"]
+    },
+    "ch-system-Python": {
+        "package_base": "Python",
+        "part": ["system"]
+    },
+    "ch-system-ninja": {
+        "package_base": "ninja",
+        "part": ["system"]
+    },
+    "ch-system-meson": {
+        "package_base": "meson",
+        "part": ["system"]
+    },
+    "ch-system-coreutils": {
+        "package_base": "coreutils",
+        "part": ["system"]
+    },
+    "ch-system-check": {
+        "package_base": "check",
+        "part": ["system"]
+    },
+    "ch-system-diffutils": {
+        "package_base": "diffutils",
+        "part": ["system"]
+    },
+    "ch-system-gawk": {
+        "package_base": "gawk",
+        "part": ["system"]
+    },
+    "ch-system-findutils": {
+        "package_base": "findutils",
+        "part": ["system"]
+    },
+    "ch-system-groff": {
+        "package_base": "groff",
+        "replace": {
+            "0": ["PAGE=\n", "PAGE=%s", "papersize"]
+        },
+        "part": ["system"]
+    },
+    "ch-system-grub": {
+        "package_base": "grub",
+        "part": ["system"]
+    },
+    "ch-system-gzip": {
+        "package_base": "gzip",
+        "part": ["system"]
+    },
+    "ch-system-iproute2": {
+        "package_base": "iproute2",
+        "part": ["system"]
+    },
+    "ch-system-kbd": {
+        "package_base": "kbd",
+        "part": ["system"]
+    },
+    "ch-system-libpipeline": {
+        "package_base": "libpipeline",
+        "part": ["system"]
+    },
+    "ch-system-make": {
+        "package_base": "make",
+        "part": ["system"]
+    },
+    "ch-system-patch": {
+        "package_base": "patch",
+        "part": ["system"]
+    },
+    "ch-system-tar": {
+        "package_base": "tar",
+        "part": ["system"]
+    },
+    "ch-system-texinfo": {
+        "package_base": "texinfo",
+        "part": ["system"]
+    },
+    "ch-system-vim": {
+        "package_base": "vim",
+        "replace": {
+            "0": ["vim -c ':options'", ""]
+        },
+        "part": ["system"]
+    },
+    "ch-system-eudev": {
+        "package_base": "eudev",
+        "part": ["system"]
+    },
+    "ch-system-man-db": {
+        "package_base": "man-db",
+        "part": ["system"]
+    },
+    "ch-system-procps": {
+        "package_base": "procps",
+        "part": ["system"]
+    },
+    "ch-system-util-linux": {
+        "package_base": "util",
+        "part": ["system"],
+        "replace": {
+            "0": ["bash tests/run.sh --srcdir=$PWD --builddir=$PWD", ""]
+        }
+    },
+    "ch-system-e2fsprogs": {
+        "package_base": "e2fsprogs",
+        "changedir": 1,
+        "part": ["system"]
+    },
+    "ch-system-sysklogd": {
+        "package_base": "sysklogd",
+        "part": ["system"]
+    },
+    "ch-system-sysvinit": {
+        "package_base": "sysvinit",
+        "part": ["system"]
+    },
+    "ch-system-cleanup": {
+        "package_base": "nonpackage",
+        "part": ["system"]
+    },
+	 "config": {
+		 "copy": [
+			 ["ifconfig.eth0", "/etc/sysconfig"],
+			 ["resolv.conf", "/etc"],
+			 ["hostname", "/etc"],
+			 ["hosts", "/etc"],
+			 ["inittab", "/etc"],
+			 ["clock", "/etc/sysconfig"],
+			 ["console", "/etc/sysconfig"],
+			 ["rc.site", "/etc/sysconfig"],
+			 ["profile", "/etc"],
+			 ["inputrc", "/etc"],
+			 ["shells", "/etc"],
+			 ["fstab", "/etc"]
+		 ]
+	 }
+}

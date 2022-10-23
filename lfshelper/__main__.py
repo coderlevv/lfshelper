@@ -10,6 +10,7 @@ from .utils import check_md5sums
 from .utils import get_sections
 from .utils import add_package_commands
 from .utils import write_section_cmds
+from .utils import write_config_script
 from .classes import HTMLParseError
 
 from .__init__ import __version__
@@ -120,6 +121,10 @@ def main():
     for sec in all_sections:
         if not sec.output:
             print(f"WARNING: no output for {sec.chapter_id}")
+
+    if "config" in build_db:
+        print("Creating config script...")
+        write_config_script(build_db, args, lfs_version)
 
     print("Done.")
     sys.exit(0)
