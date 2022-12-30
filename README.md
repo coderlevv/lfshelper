@@ -124,10 +124,26 @@ The *message* field allows to echo messages commands after section commands sect
     }
 ```
 
+If a *copy* field is included in the build db, an additional script is generated which contains commands to copy configuration files into specified folders. The generated 
+script expects the files in a folder named *config* inside the directory the script is
+executed.
+```json
+"config": {
+		 "copy": [
+			 ["ifconfig.eth0", "/etc/sysconfig"],
+			 ["resolv.conf", "/etc"],
+		 ]
+	 }
+```
+
+
 ## Building the LFS system
 To actually build the LFS system, run the generated shell scripts in the sequence given by the "_part\<n>" suffix from within the *source* directory, e.g. like so:
 ```sh
 time bash lfs_build_part1.sh 2>&1 | tee lfs_build_part1.log
 ```
+
+If your build db includes the *copy* field and your current working directory contains a *config* folder with correpsonding LFS config files, run the lfs_build_config.sh script to
+copy the config files into prespecified locations. 
 
 Depending on the included sections the build scripts need to be run as user *lfs* or *root*. Please refer to the LFS book for details.

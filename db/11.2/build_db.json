@@ -491,7 +491,7 @@
         "package_base": "nonpackage",
         "part": ["system"]
     },
-	 "config": {
+	"config": {
 		 "copy": [
 			 ["ifconfig.eth0", "/etc/sysconfig"],
 			 ["resolv.conf", "/etc"],
@@ -507,5 +507,5 @@
 			 ["shells", "/etc"],
 			 ["fstab", "/etc"]
 		 ]
-	 }
+	}
 }
