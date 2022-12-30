@@ -373,6 +373,10 @@
         "package_base": "Python",
         "part": ["system"]
     },
+    "ch-system-wheel": {
+        "package_base": "wheel",
+        "part": ["system"]
+    },
     "ch-system-ninja": {
         "package_base": "ninja",
         "part": ["system"]
@@ -496,6 +500,7 @@
 			 ["inittab", "/etc"],
 			 ["clock", "/etc/sysconfig"],
 			 ["console", "/etc/sysconfig"],
+			 ["mouse", "/etc/sysconfig"],
 			 ["rc.site", "/etc/sysconfig"],
 			 ["profile", "/etc"],
 			 ["inputrc", "/etc"],
