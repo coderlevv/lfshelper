@@ -129,11 +129,11 @@ script expects the files in a folder named *config* inside the directory the scr
 executed.
 ```json
 "config": {
-		 "copy": [
-			 ["ifconfig.eth0", "/etc/sysconfig"],
-			 ["resolv.conf", "/etc"],
-		 ]
-	 }
+	"copy": [
+		["ifconfig.eth0", "/etc/sysconfig"],
+		["resolv.conf", "/etc"],
+	]
+}
 ```
 
 
@@ -143,7 +143,7 @@ To actually build the LFS system, run the generated shell scripts in the sequenc
 time bash lfs_build_part1.sh 2>&1 | tee lfs_build_part1.log
 ```
 
-If your build db includes the *copy* field and your current working directory contains a *config* folder with correpsonding LFS config files, run the lfs_build_config.sh script to
-copy the config files into prespecified locations. 
+If your build db includes the *copy* field and your current working directory contains a *config* folder with corresponding LFS config files, run the lfs_build_config.sh script to
+copy the config files to prespecified locations. 
 
 Depending on the included sections the build scripts need to be run as user *lfs* or *root*. Please refer to the LFS book for details.
