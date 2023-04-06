@@ -2,9 +2,9 @@
 
 Provides a python3 command line tool which can generate shell scripts to build a [LFS system](https://www.linuxfromscratch.org/).
 
-The generated build scripts do *not* entirely automate an LFS build. E.g. most of the preparation steps and LFS configuration after the system was built is not covered by the build scripts.
+The generated build scripts do *not* entirely automate an LFS build. E.g. most of the preparation steps and LFS configuration after the system was built are not covered by the build scripts.
 
-The package was tested by successfully building a LFS 11.1 system. However, no thorough testing was done e.g. on different host systems and/or with different python3 versions. So, use at your own risk!
+The package was tested by successfully building a LFS 11.3 system. However, no thorough testing was done e.g. on different host systems and/or with different python3 versions. So, use at your own risk!
 
 ## Installation
 Build the lfshelper package:
@@ -14,7 +14,7 @@ python setup.py sdist
 ```
 The source package to install with pip can be found in the dist directory.
 
-Create a python virtual environment on the host system and install the lfshelper package inside it. The lxml package is a dependency and should be installed along the lfshelper package as well.
+Create a python virtual environment on the host system and install the lfshelper package inside it. The lxml package is a dependency and will be installed along the lfshelper package as well.
 ```sh
 python -m venv lfsenv
 source lfsenv/bin/activate
@@ -22,23 +22,31 @@ pip install lfshelper-<VERSION>.tar.gz
 deactivate
 ```
 ## Usage
-Follow the instructions in the LFS book to prepare the LFS build. At some point all source packages are downloaded and placed in a *source* directory on the LFS partition.
+Follow the instructions in the LFS book to prepare the LFS build. At some point, the source packages are downloaded and placed in a *source* directory on the LFS partition.
 
-Now, add the LFS-BOOK-<LFS.VERSION>-NOCHUNKS.html file and the build_db.json file corresponding to the LFS book version to this *source* directory.
+Now add the LFS-BOOK-<LFS.VERSION>-NOCHUNKS.html file and the build_db.json file corresponding to the LFS book version to this *source* directory.
 
-Activate the python environment where you installed the lfshelper package, and from within the *source* directory run:
+You may have LFS configuration files available from a previous LFS install. Place these files in a separate *config* directory. 
+
+As *root* user activate the python environment where you installed the lfshelper package, and from within the *source* directory run:
 
 ```sh
 lfsbuild
 ```
-This creates several shell scripts in the *source* directory containing the commands to build the LFS system. After creating the scripts, deactivate the environment and continue with the preparation of the LFS build.
+This creates several shell scripts in the *source* directory containing the commands to build the LFS system. If you created and populated the *config* directory, a config script with copy commands is generated as well.
+
+After creating the scripts, deactivate the environment and continue with the preparation of the LFS build. Following the creation of the *lfs* user, make *lfs* the owner of the build scripts.
+
+```sh
+chown lfs:lfs *.sh
+```
 
 A list of all options of the lfsbuild script is produced with the help option:
 ```sh
 lfsbuild --help
 ```
 
-## Build database
+## build_db.json
 In a first pass, the lfsbuild script parses the LFS book html file and builds an internal data structure representing the sequence of chapters & sections. This includes the commands to build the LFS system given in the LFS book sections.
 
 In a second pass, the build scripts are generated from the internal data structure. Each extracted section is identified by the id given in the LFS-BOOK-<LFS.VERSION>-NOCHUNKS.html file. Only commands from sections that are found in the *build_db.json* file are copied into the build scripts.
@@ -65,7 +73,7 @@ Sections in the book which contain build commands, but are not related to a sour
     "part": ["tool1"]
 }
 ```
-A *newfile* field with a value of *true* forces the lfsbuild script to close the currently generated build file and open a new one. Commands of this and the following sections are written to the new file.
+A *newfile* field with a value of *true* forces the lfsbuild script to close the currently generated script file and open a new one. Commands of this and the following sections are written to the new file.
 
 Whenever the lfsbuild script encounters a call to *bash* or *logout* within the section build commands, a new file is generated automatically, i.e. the *newfile* field is implied in these cases.
 
@@ -97,7 +105,7 @@ The *append* field allows to append commands to a section.
 }
 ```
 
-With the *replace* field, commands can be removed or modified. The value of a replacement entry is an array where the first element is the pattern that is going to be replace if found, and the second entry is the replacement string. If the replacement string contains %s, the value of the variable with the name given as third array element is substituted in the replacement.
+With the *replace* field, commands can be removed or modified. The value of a replacement entry is an array where the first element is the pattern that is going to be replaced if found, and the second entry is the replacement string. If the replacement string contains %s, the value of the variable with the name given as third array element is substituted in the replacement.
 ```json
  "ch-system-glibc": {
     "package_base": "glibc",
@@ -146,4 +154,4 @@ time bash lfs_build_part1.sh 2>&1 | tee lfs_build_part1.log
 If your build db includes the *copy* field and your current working directory contains a *config* folder with corresponding LFS config files, run the lfs_build_config.sh script to
 copy the config files to prespecified locations. 
 
-Depending on the included sections the build scripts need to be run as user *lfs* or *root*. Please refer to the LFS book for details.
+Depending on the included sections the build scripts need to be run as user *lfs* or *root*. Please refer to the [LFS book](https://www.linuxfromscratch.org/) for details.
