@@ -93,7 +93,7 @@ class Package():
         base = name.split('.')[0].split("-")[0]
         if base == "man":
             base = '-'.join(name.split('.')[0].split("-")[:2])
-        elif base in ["m4", "bzip2", "iproute2", "e2fsprogs"]:
+        elif base in ["Jinja2", "m4", "bzip2", "iproute2", "e2fsprogs"]:
             pass
         else:
             base = re.sub("\\d+", "", base)

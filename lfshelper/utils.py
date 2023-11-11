@@ -191,6 +191,9 @@ def add_package_commands(sections, packages, build_db):
                 sec.package = found_package
                 #TODO: raise an exception
 
+            if 'package' in build_db[sec.chapter_id]:
+                sec.package = Package(build_db[sec.chapter_id]['package'], "")
+
             cmd_str = ""
             cmds = sec.title_div.getparent().xpath(".//kbd[@class='command']")
             for cmd in cmds:
