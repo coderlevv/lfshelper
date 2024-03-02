@@ -121,7 +121,7 @@ def get_packages(doc):
     """Extract package data from LFS html document."""
 
     qry = doc.xpath("//p[contains(text(), 'Download or otherwise obtain the following packages:')]")[0].getnext()
-    if not qry:
+    if len(qry) == 0:
         raise HTMLParseError("Couldn't parse package data from html file.")
     dl_div = qry[0] 
     #if dl_div is None:
