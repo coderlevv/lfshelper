@@ -120,16 +120,15 @@ def get_sections(doc, build_db, part):
 def get_packages(doc):
     """Extract package data from LFS html document."""
 
-    qry = doc.xpath("//h2[@class='title' and contains(text()[2], 'All Packages')]")
+    qry = doc.xpath("//p[contains(text(), 'Download or otherwise obtain the following packages:')]")[0].getnext()
     if not qry:
         raise HTMLParseError("Couldn't parse package data from html file.")
-    section = qry[0]
-    package_node = section.getparent().getparent().getparent().getparent()
-    if package_node is None:
-        raise HTMLParseError("Couldn't parse package data from html file.")
-    dl = package_node.xpath(".//dd/p[contains(text(), 'Download')]")
+    dl_div = qry[0] 
+    #if dl_div is None:
+    #    raise HTMLParseError("Couldn't parse package data from html file.")
+    dl = dl_div.xpath(".//dd/p[contains(text(), 'Download')]")
     package_list = [basename(d.getchildren()[0].attrib['href']) for d in dl]
-    md5 = package_node.xpath(".//dd/p[contains(text(), 'MD5')]")
+    md5 = dl_div.xpath(".//dd/p[contains(text(), 'MD5')]")
     md5_list = [m.getchildren()[0].text.strip() for m in md5]
     if len(package_list) != len(md5):
         raise HTMLParseError("Couldn't parse package data from html file.")
