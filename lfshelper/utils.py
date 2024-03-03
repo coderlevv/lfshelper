@@ -194,16 +194,10 @@ def add_package_commands(sections, packages, build_db):
                 sec.package = Package(build_db[sec.chapter_id]['package'], "")
 
             cmd_str = ""
-            cmds = sec.title_div.getparent().xpath(".//kbd[@class='command']")
+            cmds = sec.title_div.getnext().xpath(".//kbd[@class='command']")
             for cmd in cmds:
-                if cmd.text is not None:
-                    texts = cmd.xpath("text()")
-                    cmd_str += texts[0] + '\n'
-                    codes = cmd.xpath("code")
-                    for code in codes:
-                        cmd_str += code.text + '\n'
-                    if len(texts) == 2:
-                        cmd_str += texts[1] + '\n'
+                subcmd = ''.join(cmd.itertext())
+                cmd_str += subcmd + '\n'
 
             if 'replace' in build_db[sec.chapter_id]:
                 replace_cmds = build_db[sec.chapter_id]['replace']
