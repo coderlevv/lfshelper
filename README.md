@@ -4,7 +4,8 @@ Provides a python3 command line tool which can generate shell scripts to build a
 
 The generated build scripts do *not* entirely automate an LFS build. E.g. most of the preparation steps and LFS configuration after the system was built are not covered by the build scripts.
 
-The package was tested by successfully building a LFS 11.3 system. However, no thorough testing was done e.g. on different host systems and/or with different python3 versions. So, use at your own risk!
+The package was tested by successfully building a LFS 12.1 system. However, no thorough testing was done e.g. on different host systems and/or with different python3 versions. So, use at your own risk!
+
 
 ## Installation
 Build the lfshelper package:
@@ -116,7 +117,7 @@ With the *replace* field, commands can be removed or modified. The value of a re
         "3": ["ln -sfv /usr/share/zoneinfo/\n /etc/localtime", "ln -sfv /usr/share/zoneinfo/%s /etc/localtime", "timezone"]
 }
 ```
-The *message* field allows to echo messages commands after section commands section.
+The *message* field allows to echo messages after section commands.
 ```json
 "ch-system-shadow": {
         "package_base": "shadow",
