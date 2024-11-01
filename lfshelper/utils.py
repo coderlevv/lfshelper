@@ -50,7 +50,7 @@ def parse_doc(html_dir):
     """Find LFS html file and parse it."""
 
     files = listdir(html_dir)
-    html_file_match = [f for f in files if re.findall("LFS-BOOK.*-NOCHUNKS.html", f)]
+    html_file_match = [f for f in files if re.findall("LFS-.*-NOCHUNKS.html", f)]
     if len(html_file_match) == 0:
         print("No LFS-BOOK html file found.")
         sys.exit()
@@ -124,8 +124,6 @@ def get_packages(doc):
     if len(qry) == 0:
         raise HTMLParseError("Couldn't parse package data from html file.")
     dl_div = qry[0] 
-    #if dl_div is None:
-    #    raise HTMLParseError("Couldn't parse package data from html file.")
     dl = dl_div.xpath(".//dd/p[contains(text(), 'Download')]")
     package_list = [basename(d.getchildren()[0].attrib['href']) for d in dl]
     md5 = dl_div.xpath(".//dd/p[contains(text(), 'MD5')]")
@@ -253,9 +251,6 @@ def write_section_cmds(sections, args, lfs_version):
     part_count = 1
     fname = join(args.out_dir, f"lfs_build_part{part_count}.sh")
     fout = open(fname, "w", newline=newline)
-    #shell_str = "#!/bin/bash"
-    # shell_str = ""
-    # print(shell_str, file=fout)
     print(get_license_string(lfs_version), file=fout)
 
     for sec in sections:
@@ -266,7 +261,6 @@ def write_section_cmds(sections, args, lfs_version):
                 part_count += 1
                 fname = join(args.out_dir, f"lfs_build_part{part_count}.sh")
                 fout = open(fname, "w", newline=newline)
-                #print(shell_str, file=fout)
                 print(get_license_string(lfs_version), file=fout)
         
             if sec.package:

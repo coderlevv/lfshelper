@@ -78,10 +78,14 @@ class Package():
         self.base = self.get_unique_base_name(self.name)
         tar_opt = self.tar.replace("x", "t")
         tar_out = os.popen(f"tar {tar_opt} {self.name}|head -n1").read()
-        unpack_name = Path(tar_out.split()[-1]).parts[0]
-        assert unpack_name != ""
+        #unpack_name = Path(tar_out.split()[-1]).parts[0]
+        # pattern = hh:mm pathname_after_unpacking/
+        # .+? means grab minimal text that matches (greedy w/o the ?)
+        unpack_name = None
+        m = re.findall(r"\d{2}:\d{2}\s+(.+?)/", tar_out)
+        if m:
+            unpack_name = m[0]
         self.unpack_name = unpack_name
-
     
     def __repr__(self):
         return self.unpack_name
@@ -93,7 +97,7 @@ class Package():
         base = name.split('.')[0].split("-")[0]
         if base == "man":
             base = '-'.join(name.split('.')[0].split("-")[:2])
-        elif base in ["Jinja2", "m4", "bzip2", "iproute2", "e2fsprogs"]:
+        elif base in ["jinja2", "lz4", "m4", "bzip2", "iproute2", "e2fsprogs"]:
             pass
         else:
             base = re.sub("\\d+", "", base)

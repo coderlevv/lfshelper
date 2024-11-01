@@ -4,7 +4,7 @@ Provides a python3 command line tool which can generate shell scripts to build a
 
 The generated build scripts do *not* entirely automate an LFS build. E.g. most of the preparation steps and LFS configuration after the system was built are not covered by the build scripts.
 
-The package was tested by successfully building a LFS 12.1 system. However, no thorough testing was done e.g. on different host systems and/or with different python3 versions. So, use at your own risk!
+The package was tested by successfully building a LFS 12.2 system. However, no thorough testing was done e.g. on different host systems and/or with different python3 versions. So, use at your own risk!
 
 
 ## Installation
@@ -17,19 +17,19 @@ The source package to install with pip can be found in the dist directory.
 
 Create a python virtual environment on the host system and install the lfshelper package inside it. The lxml package is a dependency and will be installed along the lfshelper package as well.
 ```sh
-python -m venv lfsenv
+python3 -m venv lfsenv
 source lfsenv/bin/activate
-pip install lfshelper-<VERSION>.tar.gz
+pip install /path/to/lfshelper/dist/lfshelper-<VERSION>.tar.gz
 deactivate
 ```
 ## Usage
-Follow the instructions in the LFS book to prepare the LFS build. At some point, the source packages are downloaded and placed in a *source* directory on the LFS partition.
+Use the instructions in the LFS book to download the source packages and place them in a *source* directory on the host system.
 
-Now add the LFS-BOOK-<LFS.VERSION>-NOCHUNKS.html file and the build_db.json file corresponding to the LFS book version to this *source* directory.
+Now add the html file with the "NOCHUNKS"-Version of the LFS Book and the build_db.json file corresponding to the LFS book version to this *source* directory.
 
 You may have LFS configuration files available from a previous LFS install. Place these files in a separate *config* directory. 
 
-As *root* user activate the python environment where you installed the lfshelper package, and from within the *source* directory run:
+Activate the python environment where you installed the lfshelper package, and from within the *source* directory run:
 
 ```sh
 lfsbuild
@@ -133,9 +133,7 @@ The *message* field allows to echo messages after section commands.
     }
 ```
 
-If a *copy* field is included in the build db, an additional script is generated which contains commands to copy configuration files into specified folders. The generated 
-script expects the files in a folder named *config* inside the directory the script is
-executed.
+If a *copy* field is included inside the *config* key of the build db, an additional script is generated which contains commands to copy configuration files into specified folders. The generated script expects the files in a folder named *config* inside the directory the script is executed from.
 ```json
 "config": {
 	"copy": [
